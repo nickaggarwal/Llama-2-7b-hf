@@ -26,7 +26,7 @@ class InferlessPythonModel:
     def run_function(self, message,
         chat_history,
         system_prompt,
-        max_new_tokens=1024,
+        max_new_tokens=200,
         temperature=0.8,
         top_p=0.95,
         top_k=5):
@@ -64,6 +64,7 @@ class InferlessPythonModel:
                 model_id,
                 torch_dtype=torch.float16,
                 device_map='auto',
+                load_in_4bit=True,
                 use_auth_token='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'
             )
         else:
