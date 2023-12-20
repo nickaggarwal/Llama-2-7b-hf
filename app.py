@@ -62,7 +62,6 @@ class InferlessPythonModel:
             model_id,
             torch_dtype=torch.float16,
             device_map='auto',
-            load_in_4bit=True,
             token="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",
         )
         self.tokenizer = AutoTokenizer.from_pretrained(model_id, token="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")
