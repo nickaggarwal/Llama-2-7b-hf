@@ -58,17 +58,14 @@ class InferlessPythonModel:
 
 
     def initialize(self):
-        self.tokenizer = AutoTokenizer.from_pretrained(model_id, token='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')
-        if torch.cuda.is_available():
-            self.model = AutoModelForCausalLM.from_pretrained(
-                model_id,
-                torch_dtype=torch.float16,
-                device_map='auto',
-                load_in_4bit=True,
-                token='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'
-            )
-        else:
-            self.model = None
+        self.tokenizer = AutoTokenizer.from_pretrained(model_id, token="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")
+        self.model = AutoModelForCausalLM.from_pretrained(
+            model_id,
+            torch_dtype=torch.float16,
+            device_map='auto',
+            load_in_4bit=True,
+            token="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",
+        )
 
     def infer(self, inputs):
         message = inputs['message']
