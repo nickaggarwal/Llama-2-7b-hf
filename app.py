@@ -62,9 +62,9 @@ class InferlessPythonModel:
             model_id,
             torch_dtype=torch.float16,
             device_map='auto',
-            token="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",
+            token="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",
         )
-        self.tokenizer = AutoTokenizer.from_pretrained(model_id, token="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")
+        self.tokenizer = AutoTokenizer.from_pretrained(model_id, token="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")
 
     def infer(self, inputs):
         message = inputs['message']
