@@ -6,6 +6,7 @@ import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer, TextIteratorStreamer
 
 model_id = 'meta-llama/Llama-2-7b-chat-hf'
+token = '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'
 
 class InferlessPythonModel:
     def get_prompt(self, message, chat_history,
@@ -59,12 +60,12 @@ class InferlessPythonModel:
 
     def initialize(self):
         self.model = AutoModelForCausalLM.from_pretrained(
-            model_id,
+            "meta-llama/Llama-2-7b-chat-hf",
             torch_dtype=torch.float16,
             device_map='auto',
-            token="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",
+            token=token,
         )
-        self.tokenizer = AutoTokenizer.from_pretrained(model_id, token="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")
+        self.tokenizer = AutoTokenizer.from_pretrained(model_id, token=token)
 
     def infer(self, inputs):
         message = inputs['message']
