@@ -9,6 +9,33 @@ model_id = 'meta-llama/Llama-2-7b-chat-hf'
 token = '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'
 
 class InferlessPythonModel:
+
+    def initialize(self):
+        self.model = AutoModelForCausalLM.from_pretrained(
+            "meta-llama/Llama-2-7b-chat-hf",
+            torch_dtype=torch.float16,
+            device_map='auto',
+            token=token,
+        )
+        self.tokenizer = AutoTokenizer.from_pretrained(model_id, token=token)
+
+    def infer(self, inputs):
+        message = inputs['message']
+        chat_history = inputs['chat_history'] if 'chat_history' in inputs else []
+        system_prompt = inputs['system_prompt'] if 'system_prompt' in inputs else ''
+        result = self.run_function(
+            message=message,
+            chat_history=chat_history,
+            system_prompt=system_prompt,
+        )
+        return {"generated_text": result}
+
+    def finalize(self):
+        self.tokenizer = None
+        self.model = None
+
+
+    
     def get_prompt(self, message, chat_history,
                system_prompt):
         texts = [f'[INST] <<SYS>>\n{system_prompt}\n<</SYS>>\n\n']
@@ -58,26 +85,4 @@ class InferlessPythonModel:
         return outputs
 
 
-    def initialize(self):
-        self.model = AutoModelForCausalLM.from_pretrained(
-            "meta-llama/Llama-2-7b-chat-hf",
-            torch_dtype=torch.float16,
-            device_map='auto',
-            token=token,
-        )
-        self.tokenizer = AutoTokenizer.from_pretrained(model_id, token=token)
-
-    def infer(self, inputs):
-        message = inputs['message']
-        chat_history = inputs['chat_history'] if 'chat_history' in inputs else []
-        system_prompt = inputs['system_prompt'] if 'system_prompt' in inputs else ''
-        result = self.run_function(
-            message=message,
-            chat_history=chat_history,
-            system_prompt=system_prompt,
-        )
-        return {"generated_text": result}
-
-    def finalize(self):
-        self.tokenizer = None
-        self.model = None
+    
