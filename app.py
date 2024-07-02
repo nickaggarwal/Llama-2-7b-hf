@@ -6,7 +6,6 @@ import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer, TextIteratorStreamer
 
 model_id = 'meta-llama/Llama-2-7b-chat-hf'
-token = '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'
 
 class InferlessPythonModel:
 
@@ -84,5 +83,4 @@ class InferlessPythonModel:
 
         return outputs
 
-
-    
+token = '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'
